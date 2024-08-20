@@ -1,3 +1,4 @@
+using DevFreela.API.Handlers;
 using DevFreela.API.Models;
 using DevFreela.API.Services;
 
@@ -10,7 +11,8 @@ builder.Services.Configure<FreelanceTotalCostConfig>(
 
 builder.Services.AddScoped<IConfigServices, ConfigServices>();
 
-builder.Services.AddExceptionHandler();
+builder.Services.AddExceptionHandler<ApiExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -25,6 +27,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseExceptionHandler();
 
 app.UseHttpsRedirection();
 

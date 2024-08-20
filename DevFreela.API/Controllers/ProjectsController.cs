@@ -29,6 +29,7 @@ namespace DevFreela.API.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
+            throw new Exception();
             return Ok();
         }
 
