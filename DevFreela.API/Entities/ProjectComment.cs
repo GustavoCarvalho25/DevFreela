@@ -8,7 +8,7 @@
         public int IdUser { get; private set; }
         public User User { get; private set; }
 
-        public ProjectComment(string content, int idProject, int idUser)
+        public ProjectComment(string content, int idProject, int idUser) : base()
         {
             Content = content;
             IdProject = idProject;
