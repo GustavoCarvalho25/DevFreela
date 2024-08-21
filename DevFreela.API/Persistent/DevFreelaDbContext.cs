@@ -53,6 +53,8 @@ namespace DevFreela.API.Persistent
 
                 e.HasOne(p => p.Client)
                     .WithMany(p => p.OwnedProjects)
+                    .HasForeignKey(p => p.IdClient)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<ProjectComment>(e =>
