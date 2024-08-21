@@ -9,13 +9,8 @@ namespace DevFreela.API.Controllers
     [Route("api/projects")]
     public class ProjectsController : ControllerBase
     {
-        private readonly FreelanceTotalCostConfig _config;
-        private readonly IConfigServices _configServices;
-
-        public ProjectsController(IOptions<FreelanceTotalCostConfig> options, IConfigServices configServices)
+        public ProjectsController()
         {
-            _config = options.Value;
-            _configServices = configServices;
         }
 
         // GET : api/projects?search=value
@@ -29,7 +24,6 @@ namespace DevFreela.API.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            throw new Exception();
             return Ok();
         }
 
@@ -37,10 +31,6 @@ namespace DevFreela.API.Controllers
         [HttpPost]
         public IActionResult Post(CreateProjectInputModel model)
         {
-            if((model.TotalCost < _config.MinimunValue) || (model.TotalCost > _config.MaximumValue))
-            {
-                return BadRequest("Numero fora dos limites.");
-            }
             return CreatedAtAction(nameof(GetById), new {id = 1}, model);
         }
 
