@@ -15,7 +15,7 @@ namespace DevFreela.API.Models
             string title,
             string clientName,
             string freelancerName,
-            decimal totalCost)
+            decimal totalCost )
         {
             Id = id;
             Title = title;
@@ -23,5 +23,14 @@ namespace DevFreela.API.Models
             FreelancerName = freelancerName;
             TotalCost = totalCost;
         }
+
+        public static ProjectItemViewModel FromEntity(Project project)
+        =>  new ProjectItemViewModel(
+                project.Id,
+                project.Title,
+                project.Client.FullName,
+                project.Freelancer.FullName,
+                project.TotalCost
+            );
     }
 }
