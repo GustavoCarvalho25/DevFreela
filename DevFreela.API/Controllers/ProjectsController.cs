@@ -44,7 +44,13 @@ namespace DevFreela.API.Controllers
                 .Include(p => p.Comments)
                 .SingleOrDefault(p => p.Id == id);
 
+            if (project is null)
+            {
+                return NotFound();
+            }
+
             var model = ProjectViewModel.FromEntity(project);
+
             return Ok(model);
         }
 
@@ -53,8 +59,10 @@ namespace DevFreela.API.Controllers
         public IActionResult Post(CreateProjectInputModel model)
         {
             var project = model.ToEntity();
+
             _context.Projects.Add(project);
             _context.SaveChanges();
+
             return CreatedAtAction(nameof(GetById), new {id = 1}, model);
         }
 
@@ -90,6 +98,7 @@ namespace DevFreela.API.Controllers
             project.SetAsDeleted();
             _context.Projects.Update(project);
             _context.SaveChanges();
+
             return NoContent();
         }
 
@@ -103,6 +112,7 @@ namespace DevFreela.API.Controllers
             {
                 return NotFound();
             }
+
             project.Start();
             _context.Projects.Update(project);
             _context.SaveChanges();
@@ -140,6 +150,7 @@ namespace DevFreela.API.Controllers
             }
 
             var projectComment = new ProjectComment(model.Content, model.IdProject, model.IdUser);
+
             _context.ProjectComments.Add(projectComment);
             _context.SaveChanges();
 
