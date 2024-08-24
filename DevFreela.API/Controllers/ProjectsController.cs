@@ -1,10 +1,8 @@
-﻿using DevFreela.API.Entities;
-using DevFreela.API.Models;
-using DevFreela.API.Persistent;
-using DevFreela.API.Services;
+﻿using DevFreela.Application.Models;
+using DevFreela.Core.Entities;
+using DevFreela.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace DevFreela.API.Controllers
 {
