@@ -1,6 +1,6 @@
 using DevFreela.API.Handlers;
-using DevFreela.API.Models;
-using DevFreela.API.Persistent;
+using DevFreela.Application.Models;
+using DevFreela.Infrastructure.Persistence;
 using DevFreela.API.Services;
 using Microsoft.EntityFrameworkCore;
 
