@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Users\UpdateUser\" />
     <Folder Include="Querys\Users\GetUserById\" />
   </ItemGroup>
 
