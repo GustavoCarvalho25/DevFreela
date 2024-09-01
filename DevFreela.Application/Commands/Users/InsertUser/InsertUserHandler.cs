@@ -12,12 +12,10 @@ namespace DevFreela.Application.Commands.Users.InsertUser
 {
     public class InsertUserHandler : IRequestHandler<InsertUserCommand, ResultViewModel<int>>
     {
-        private readonly IMediator _mediator;
         private readonly IUserRepository _repository;
 
-        public InsertUserHandler(IMediator mediator, IUserRepository repository)
+        public InsertUserHandler(IUserRepository repository)
         {
-            _mediator = mediator;
             _repository = repository;
         }
 
