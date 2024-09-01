@@ -1,6 +1,5 @@
 using DevFreela.API.Handlers;
 using DevFreela.Application.Models;
-using DevFreela.API.Services;
 using DevFreela.Application;
 using DevFreela.Infrastructure;
 
@@ -14,8 +13,6 @@ builder.Services.Configure<FreelanceTotalCostConfig>(
 builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
-
-builder.Services.AddScoped<IConfigServices, ConfigServices>();
 
 builder.Services.AddExceptionHandler<ApiExceptionHandler>();
 builder.Services.AddProblemDetails();
