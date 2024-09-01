@@ -10,7 +10,7 @@ namespace DevFreela.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<bool> Exists(int id)
+        public Task<bool> CheckUserExists(int id)
         {
             throw new NotImplementedException();
         }
@@ -25,7 +25,7 @@ namespace DevFreela.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task PostSkills(UserSkill skills)
+        public Task AddUserSkills(List<UserSkill> skills)
         {
             throw new NotImplementedException();
         }
