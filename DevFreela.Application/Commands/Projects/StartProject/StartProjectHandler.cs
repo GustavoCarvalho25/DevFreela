@@ -2,7 +2,7 @@
 using DevFreela.Core.Repositories;
 using MediatR;
 
-namespace DevFreela.Application.Commands.StartProject
+namespace DevFreela.Application.Commands.Projects.StartProject
 {
     public class StartProjectHandler : IRequestHandler<StartProjectCommand, ResultViewModel>
     {

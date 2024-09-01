@@ -2,7 +2,7 @@
 using DevFreela.Core.Repositories;
 using MediatR;
 
-namespace DevFreela.Application.Commands.UpdateProject
+namespace DevFreela.Application.Commands.Projects.UpdateProject
 {
     public class UpdateProjectHandler : IRequestHandler<UpdateProjectCommand, ResultViewModel>
     {
@@ -23,7 +23,7 @@ namespace DevFreela.Application.Commands.UpdateProject
             }
 
             project.Update(request.Title, request.Description, request.TotalCost);
-            
+
             await _projectRepository.Update(project);
 
             return ResultViewModel.Success();

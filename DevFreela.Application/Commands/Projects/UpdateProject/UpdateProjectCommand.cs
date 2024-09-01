@@ -1,7 +1,7 @@
 ﻿using DevFreela.Application.Models;
 using MediatR;
 
-namespace DevFreela.Application.Commands.UpdateProject
+namespace DevFreela.Application.Commands.Projects.UpdateProject
 {
     public class UpdateProjectCommand : IRequest<ResultViewModel>
     {

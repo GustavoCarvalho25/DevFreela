@@ -3,7 +3,7 @@ using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
 using MediatR;
 
-namespace DevFreela.Application.Commands.InsertComment
+namespace DevFreela.Application.Commands.Projects.InsertComment
 {
     public class InsertCommentHandler : IRequestHandler<InsertCommentCommand, ResultViewModel>
     {

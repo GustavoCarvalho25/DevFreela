@@ -2,7 +2,7 @@
 using DevFreela.Core.Repositories;
 using MediatR;
 
-namespace DevFreela.Application.Commands.CompleteProject
+namespace DevFreela.Application.Commands.Projects.CompleteProject
 {
     public class CompleteProjectHandler : IRequestHandler<CompleteProjectCommand, ResultViewModel>
     {
@@ -15,7 +15,7 @@ namespace DevFreela.Application.Commands.CompleteProject
 
         public async Task<ResultViewModel> Handle(CompleteProjectCommand request, CancellationToken cancellationToken)
         {
-            
+
             var project = await _projectRepository.GetById(request.Id);
 
             if (project is null)

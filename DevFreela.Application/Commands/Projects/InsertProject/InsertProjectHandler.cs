@@ -3,7 +3,7 @@ using DevFreela.Application.Notification;
 using DevFreela.Core.Repositories;
 using MediatR;
 
-namespace DevFreela.Application.Commands.InsertProject
+namespace DevFreela.Application.Commands.Projects.InsertProject
 {
     public class InsertProjectHandler : IRequestHandler<InsertProjectCommand, ResultViewModel<int>>
     {
