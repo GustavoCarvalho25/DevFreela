@@ -30,7 +30,6 @@ namespace DevFreela.Core.Entities
             Comments = [];
         }
 
-
         public void Cancel()
         {
             if(Status == ProjectStatusEnum.InProgress || Status == ProjectStatusEnum.Suspended)
