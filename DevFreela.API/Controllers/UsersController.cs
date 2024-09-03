@@ -1,5 +1,6 @@
 ﻿using DevFreela.Application.Commands.Users.InsertUser;
 using DevFreela.Application.Commands.Users.InsertUserSkills;
+using DevFreela.Application.Commands.Users.UpdateUser;
 using DevFreela.Application.Querys.Users.GetUserById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -47,10 +48,25 @@ namespace DevFreela.API.Controllers
             return NoContent();
         }
 
+        // PUT : api/users/1234
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, UpdateUserCommand command)
+        {
+            var result = await _mediator.Send(command);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return NoContent();
+        }
+
         // POST : api/users/1/skills
         [HttpPost("{id}/skills")]
-        public async Task<IActionResult> PostSkills(InsertUserSkillsCommand command)
+        public async Task<IActionResult> PostSkills(int userId, InsertUserSkillsCommand command)
         {
+
             var result = await _mediator.Send(command);
 
             if (!result.IsSuccess)
