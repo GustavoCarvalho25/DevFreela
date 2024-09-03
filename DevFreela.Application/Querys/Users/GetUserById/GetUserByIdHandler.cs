@@ -19,7 +19,7 @@ namespace DevFreela.Application.Querys.Users.GetUserById
 
             if (user is null)
             {
-                return ResultViewModel.Error("Usuário não existe.");
+                return ResultViewModel<UserViewModel>.Error("Usuário não existe.");
             }
 
             var model = UserViewModel.FromEntity(user);

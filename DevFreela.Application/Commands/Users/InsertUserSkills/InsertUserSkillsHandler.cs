@@ -7,16 +7,16 @@ namespace DevFreela.Application.Commands.Users.InsertUserSkills
 {
     public class InsertUserSkillsHandler : IRequestHandler<InsertUserSkillsCommand, ResultViewModel<int>>
     {
-        private readonly IUserRepository _repository;
+        private readonly IUserRepository _userRepository;
 
         public InsertUserSkillsHandler(IUserRepository repository)
         {
-            _repository = repository;
+            _userRepository = repository;
         }
 
         public async Task<ResultViewModel<int>> Handle(InsertUserSkillsCommand request, CancellationToken cancellationToken)
         {
-            var exists = await _repository.CheckUserExists(request.IdUser);
+            var exists = await _userRepository.CheckUserExists(request.IdUser);
 
             if (!exists)
             {
@@ -26,7 +26,7 @@ namespace DevFreela.Application.Commands.Users.InsertUserSkills
             var userSkills = request.SkillIds.Select(s =>
             new UserSkill(request.IdUser, s)).ToList();
 
-            await _repository.AddUserSkills(userSkills);
+            await _userRepository.AddUserSkills(userSkills);
 
             return ResultViewModel<int>.Success(request.IdUser);
         }
