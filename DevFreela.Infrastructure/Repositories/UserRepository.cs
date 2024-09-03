@@ -32,22 +32,23 @@ namespace DevFreela.Infrastructure.Repositories
 
         public async Task<User?> GetById(int id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
-        }
+            var user = await _context.Users
+                .Include(us => us.Skills)
+                .SingleOrDefaultAsync(u => u.Id == id);
 
-        public async Task<User?> GetDetailsById(int id)
-        {
-            throw new NotImplementedException();
+            return user;
         }
 
         public async Task AddUserSkills(List<UserSkill> skills)
         {
-            throw new NotImplementedException();
+            await _context.UserSkills.AddRangeAsync(skills);
+            await _context.SaveChangesAsync();
         }
 
         public async Task Update(User user)
         {
-            throw new NotImplementedException();
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
         }
     }
 }
