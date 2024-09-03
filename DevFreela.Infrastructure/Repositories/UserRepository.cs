@@ -34,6 +34,7 @@ namespace DevFreela.Infrastructure.Repositories
         {
             var user = await _context.Users
                 .Include(us => us.Skills)
+                    .ThenInclude(u => u.Skill)
                 .SingleOrDefaultAsync(u => u.Id == id);
 
             return user;
