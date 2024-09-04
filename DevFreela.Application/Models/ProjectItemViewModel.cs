@@ -24,7 +24,7 @@ namespace DevFreela.Application.Models
             TotalCost = totalCost;
         }
 
-        public static ProjectItemViewModel FromEntity(Project project)
+        public static ProjectItemViewModel ConvertToViewModel(Project project)
         =>  new ProjectItemViewModel(
                 project.Id,
                 project.Title,

@@ -17,7 +17,7 @@ namespace DevFreela.Application.Models
             Skills = skills;
         }
 
-        public static UserViewModel FromEntity(User user)
+        public static UserViewModel ConvertToViewModel(User user)
         {
             var skills = user.Skills.Select(us => us.Skill.Description).ToList();
             return new UserViewModel(user.FullName, user.Email, user.BirthDate, skills);
