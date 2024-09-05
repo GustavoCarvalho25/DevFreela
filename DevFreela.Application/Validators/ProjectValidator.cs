@@ -17,7 +17,6 @@ namespace DevFreela.Application.Validators
             RuleFor(p => p.TotalCost)
                 .GreaterThan(100)
                     .WithMessage("Valor deve ser maior que 100.");
-
         }
     }
 }
