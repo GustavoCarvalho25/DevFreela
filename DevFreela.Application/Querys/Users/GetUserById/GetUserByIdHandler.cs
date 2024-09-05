@@ -22,7 +22,7 @@ namespace DevFreela.Application.Querys.Users.GetUserById
                 return ResultViewModel<UserViewModel>.Error("Usuário não existe.");
             }
 
-            var model = UserViewModel.FromEntity(user);
+            var model = UserViewModel.ConvertToViewModel(user);
 
             return ResultViewModel<UserViewModel>.Success(model);
         }
