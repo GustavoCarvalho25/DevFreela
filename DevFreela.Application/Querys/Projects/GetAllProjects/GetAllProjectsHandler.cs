@@ -23,7 +23,7 @@ namespace DevFreela.Application.Querys.Projects.GetAllProjects
                 request.Size);
 
             var projectsViewModel = projects
-                .Select(p => ProjectItemViewModel.FromEntity(p))
+                .Select(p => ProjectItemViewModel.ConvertToViewModel(p))
                 .ToList();
 
             return ResultViewModel<List<ProjectItemViewModel>>.Success(projectsViewModel);
