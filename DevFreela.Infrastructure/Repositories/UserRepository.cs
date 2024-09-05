@@ -1,38 +1,55 @@
 ﻿using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
+using DevFreela.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevFreela.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public Task<int> Add(User user)
+        private readonly DevFreelaDbContext _context;
+
+        public UserRepository(DevFreelaDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task<bool> CheckUserExists(int id)
+        public async Task<int> Add(User user)
         {
-            throw new NotImplementedException();
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+
+            return await Task.FromResult(user.Id);
         }
 
-        public Task<User?> GetById(int id)
+        public async Task<bool> CheckUserExists(int id)
         {
-            throw new NotImplementedException();
+            var userExist = await _context.Users.AnyAsync(u => u.Id == id);
+
+            return userExist;
+
         }
 
-        public Task<User?> GetDetailsById(int id)
+        public async Task<User?> GetById(int id)
         {
-            throw new NotImplementedException();
+            var user = await _context.Users
+                .Include(us => us.Skills)
+                    .ThenInclude(u => u.Skill)
+                .SingleOrDefaultAsync(u => u.Id == id);
+
+            return user;
         }
 
-        public Task AddUserSkills(List<UserSkill> skills)
+        public async Task AddUserSkills(List<UserSkill> skills)
         {
-            throw new NotImplementedException();
+            await _context.UserSkills.AddRangeAsync(skills);
+            await _context.SaveChangesAsync();
         }
 
-        public Task Update(User user)
+        public async Task Update(User user)
         {
-            throw new NotImplementedException();
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
         }
     }
 }

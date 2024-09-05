@@ -1,6 +1,8 @@
-﻿using DevFreela.Application.Models;
-using DevFreela.Core.Entities;
-using DevFreela.Infrastructure.Persistence;
+﻿using DevFreela.Application.Commands.Skills.DeleteSkill;
+using DevFreela.Application.Commands.Skills.InsertSkill;
+using DevFreela.Application.Querys.Skills.GetSkillByDescription;
+using DevFreela.Application.Querys.Skills.GetSkillById;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevFreela.API.Controllers
@@ -9,31 +11,65 @@ namespace DevFreela.API.Controllers
     [ApiController]
     public class SkillsController : ControllerBase
     {
-        private readonly DevFreelaDbContext _context;
+        private readonly IMediator _mediator;
 
-        public SkillsController(DevFreelaDbContext context)
+        public SkillsController(IMediator mediator)
         {
-            _context = context;
+            _mediator = mediator;
         }
 
-        //Desafio => criar um modelo para retornar as skills
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetByDescription(string search = "", int page = 0, int pageSize = 3)
         {
-            var skills = _context.Skills.ToList();
+            var query = new GetSkillByDescriptionQuery(search, page, pageSize);
 
-            return Ok(skills);
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
         }
+
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetById(int Id)
+        {
+            var query = new GetSkillByIdQuery(Id);
+
+            var result = await _mediator.Send(query);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);
+        }
+
 
         [HttpPost]
-        public IActionResult Post(CreateSkillInputModel model)
+        public async Task<IActionResult> Post(InsertSkillCommand command)
         {
-            var skill = new Skill(model.Description);
+            var result = await _mediator.Send(command);
 
-            _context.Skills.Add(skill);
-            _context.SaveChanges();
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
 
-            return Ok();
+            return NoContent();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var command = new DeleteSkillCommand(id);
+
+            var result = await _mediator.Send(command);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);
         }
     }
 }

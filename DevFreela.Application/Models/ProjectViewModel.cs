@@ -36,7 +36,7 @@ namespace DevFreela.Application.Models
             Comments = comments.Select(c => c.Content).ToList();
         }
 
-        public static ProjectViewModel FromEntity(Project project)
+        public static ProjectViewModel ConvertToViewModel(Project project)
         => new ProjectViewModel(
                 project.Id,
                 project.Title,

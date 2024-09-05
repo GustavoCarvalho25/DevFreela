@@ -6,16 +6,16 @@ namespace DevFreela.Application.Commands.Users.UpdateUser
 {
     public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, ResultViewModel>
     {
-        private readonly IUserRepository _repository;
+        private readonly IUserRepository _userRepository;
 
         public UpdateUserHandler(IUserRepository repository)
         {
-            _repository = repository;
+            _userRepository = repository;
         }
 
         public async Task<ResultViewModel> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _repository.GetById(request.Id);
+            var user = await _userRepository.GetById(request.Id);
 
             if (user is null)
             {
@@ -23,7 +23,7 @@ namespace DevFreela.Application.Commands.Users.UpdateUser
             }
 
             user.Update(request.FullName, request.Email, request.BirthDate);
-            await _repository.Update(user);
+            await _userRepository.Update(user);
 
             return ResultViewModel.Success();
         }

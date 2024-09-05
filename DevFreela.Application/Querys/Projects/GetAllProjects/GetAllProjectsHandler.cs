@@ -4,11 +4,11 @@ using MediatR;
 
 namespace DevFreela.Application.Querys.Projects.GetAllProjects
 {
-    public class GetAllProjectsQueryHandler : IRequestHandler<GetAllProjectsQuery, ResultViewModel<List<ProjectItemViewModel>>>
+    public class GetAllProjectsHandler : IRequestHandler<GetAllProjectsQuery, ResultViewModel<List<ProjectItemViewModel>>>
     {
         private readonly IProjectRepository _projectRepository;
 
-        public GetAllProjectsQueryHandler(IProjectRepository projectRepository)
+        public GetAllProjectsHandler(IProjectRepository projectRepository)
         {
             _projectRepository = projectRepository;
         }
@@ -23,7 +23,7 @@ namespace DevFreela.Application.Querys.Projects.GetAllProjects
                 request.Size);
 
             var projectsViewModel = projects
-                .Select(p => ProjectItemViewModel.FromEntity(p))
+                .Select(p => ProjectItemViewModel.ConvertToViewModel(p))
                 .ToList();
 
             return ResultViewModel<List<ProjectItemViewModel>>.Success(projectsViewModel);
