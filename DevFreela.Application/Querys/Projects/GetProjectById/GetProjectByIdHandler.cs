@@ -22,7 +22,7 @@ namespace DevFreela.Application.Querys.Projects.GetProjectById
                 return ResultViewModel<ProjectViewModel>.Error("Projeto não existe.");
             }
 
-            var model = ProjectViewModel.FromEntity(project);
+            var model = ProjectViewModel.ConvertToViewModel(project);
 
             return ResultViewModel<ProjectViewModel>.Success(model);
         }
