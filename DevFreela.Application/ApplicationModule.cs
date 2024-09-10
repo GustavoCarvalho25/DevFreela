@@ -10,21 +10,21 @@ namespace DevFreela.Application
 {
     public static class ApplicationModule
     {
+        public static IServiceCollection AddApplication(this IServiceCollection services)
+        {
+            services
+                .AddHandlers()
+                .AddValidation();
+
+            return services;
+        }
+
         private static IServiceCollection AddHandlers(this IServiceCollection services)
         {
             services.AddMediatR(config =>
             config.RegisterServicesFromAssemblyContaining<InsertCommentCommand>());
 
             services.AddTransient<IPipelineBehavior<InsertProjectCommand, ResultViewModel<int>>, ValidateInsertProjectCommandBehavior>();
-
-            return services;
-        }
-
-        public static IServiceCollection AddApplication(this IServiceCollection services)
-        {
-            services
-                .AddHandlers()
-                .AddValidation();
 
             return services;
         }
