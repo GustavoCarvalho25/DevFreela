@@ -85,5 +85,12 @@ namespace DevFreela.API.Controllers
 
             return Ok(description);
         }
+
+        // PUT : api/users/login
+        [HttpPut]
+        public async Task<IActionResult> Login([FromBody] LoginUserCommand login)
+        {
+            return NoContent();
+        }
     }
 }
