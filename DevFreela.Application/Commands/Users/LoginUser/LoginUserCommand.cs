@@ -13,5 +13,8 @@ namespace DevFreela.Application.Commands.Users.LoginUser
             Email = email;
             Password = password;
         }
+
+        public LoginUserViewModel ToViewModel(string token)
+        => new LoginUserViewModel(Email, token);
     }
 }
