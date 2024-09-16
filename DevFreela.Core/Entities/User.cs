@@ -28,11 +28,13 @@
             Role = role;
         }
 
-        public void Update(string fullName, string email, DateTime birthDate)
+        public void Update(string fullName, string email, DateTime birthDate, string password, string role)
         {
             FullName = fullName;
             Email = email;
             BirthDate = birthDate;
+            Password = password;
+            Role = role;
         }
     }
 }
