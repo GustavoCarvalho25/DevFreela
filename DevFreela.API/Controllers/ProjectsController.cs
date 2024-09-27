@@ -118,29 +118,12 @@ namespace DevFreela.API.Controllers
             command.Id = id;
             var result = await _mediator.Send(command);
 
-            if (!result.IsSuccess)
-            {
-                return BadRequest(result.Message);
-            }
-
-            return NoContent();
-        }
-
-        // api/projects/1/finish
-        [HttpPut("{id}/finish")]
-        [Authorize(Roles = "Client")]
-        public async Task<IActionResult> Finish(int id, [FromBody] FinishProjectCommand command)
-        {
-            command.Id = id;
-
-            var result = await _mediator.Send(command);
-
             if (!result)
             {
                 return BadRequest("O pagamento não pôde ser processado.");
             }
 
-            return Accepted();
+            return NoContent();
         }
 
         //POST : api/projects/1234/comments
