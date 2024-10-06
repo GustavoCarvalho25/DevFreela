@@ -3,6 +3,7 @@ using DevFreela.Core.Services;
 using DevFreela.Infrastructure.Persistence;
 using DevFreela.Infrastructure.Repositories;
 using DevFreela.Infrastructure.Services.Auth;
+using DevFreela.Infrastructure.Services.MessageBus;
 using DevFreela.Infrastructure.Services.Payment;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -67,6 +68,7 @@ namespace DevFreela.Infrastructure
         {
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IMessageBusService, MessageBusService>();
             return services;
         }
 
