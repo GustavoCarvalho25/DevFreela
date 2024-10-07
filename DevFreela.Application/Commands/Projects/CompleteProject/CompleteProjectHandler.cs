@@ -6,7 +6,7 @@ using MediatR;
 
 namespace DevFreela.Application.Commands.Projects.CompleteProject
 {
-    public class CompleteProjectHandler : IRequestHandler<CompleteProjectCommand, bool>
+    public class CompleteProjectHandler : IRequestHandler<CompleteProjectCommand, ResultViewModel>
     {
         private readonly IProjectRepository _projectRepository;
         private readonly IPaymentService _paymentService;
@@ -17,30 +17,28 @@ namespace DevFreela.Application.Commands.Projects.CompleteProject
             _paymentService = paymentService;
         }
 
-        public async Task<bool> Handle(CompleteProjectCommand request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel> Handle(CompleteProjectCommand request, CancellationToken cancellationToken)
         {
 
             var project = await _projectRepository.GetById(request.Id);
 
             if (project is null)
             {
-                return false;
+                return ResultViewModel.Error("O projeto não existe.");
             }
 
             project.Complete();
 
             var paymentInfoDto = new PaymentInfoDTO(request.Id, request.CreditCardNumber, request.Cvv, request.ExpiresAt, request.FullName, project.TotalCost);
 
-            var result = await _paymentService.ProcessPayment(paymentInfoDto);
+            _paymentService.ProcessPayment(paymentInfoDto);
 
-            if(!result)
-            {
-                project.SetPaymentPendent();
-            }
+
+            project.SetPaymentPendent();
 
             await _projectRepository.Update(project);
 
-            return true;
+            return ResultViewModel.Success();
         }
     }
 }

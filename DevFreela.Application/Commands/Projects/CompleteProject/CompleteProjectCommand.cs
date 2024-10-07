@@ -3,7 +3,7 @@ using MediatR;
 
 namespace DevFreela.Application.Commands.Projects.CompleteProject
 {
-    public class CompleteProjectCommand : IRequest<bool>
+    public class CompleteProjectCommand : IRequest<ResultViewModel>
     {
         public int Id { get; set; }
         public string CreditCardNumber { get; set; }
