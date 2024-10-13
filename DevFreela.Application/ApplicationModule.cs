@@ -1,5 +1,6 @@
 ﻿using DevFreela.Application.Commands.Projects.InsertComment;
 using DevFreela.Application.Commands.Projects.InsertProject;
+using DevFreela.Application.Consumers;
 using DevFreela.Application.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -14,7 +15,8 @@ namespace DevFreela.Application
         {
             services
                 .AddHandlers()
-                .AddValidation();
+                .AddValidation()
+                .AddConsumers();
 
             return services;
         }
@@ -34,6 +36,13 @@ namespace DevFreela.Application
             services
                 .AddFluentValidationAutoValidation()
                 .AddValidatorsFromAssemblyContaining<InsertProjectCommand>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddConsumers(this IServiceCollection services)
+        {
+            services.AddHostedService<PaymentApprovedConsumer>();
 
             return services;
         }

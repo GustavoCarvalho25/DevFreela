@@ -27,14 +27,12 @@ namespace DevFreela.Application.Commands.Projects.CompleteProject
                 return ResultViewModel.Error("O projeto não existe.");
             }
 
-            project.Complete();
+            project.SetPaymentPendent();
+
 
             var paymentInfoDto = new PaymentInfoDTO(request.Id, request.CreditCardNumber, request.Cvv, request.ExpiresAt, request.FullName, project.TotalCost);
 
             _paymentService.ProcessPayment(paymentInfoDto);
-
-
-            project.SetPaymentPendent();
 
             await _projectRepository.Update(project);
 
